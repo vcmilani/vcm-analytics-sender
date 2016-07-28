@@ -8,11 +8,15 @@ import java.util.List;
 import org.apache.commons.lang3.ClassUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.reflect.FieldUtils;
+import org.apache.http.Header;
+import org.apache.http.HttpHeaders;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.HttpClients;
+import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
+import org.apache.http.message.BasicHeader;
 import org.apache.log4j.Logger;
 
 import com.vcmdevelop.analytics.annotation.AnalyticsRequest;
@@ -27,10 +31,22 @@ import com.vcmdevelop.analytics.setup.AnalyticsSetupData;
  */
 class AnalyticsSender implements Runnable {
 
-	private final static HttpClient httpClient = HttpClients.createDefault();
+	private static final HttpClient httpClient;
+	static {
+		//
+		final List<Header> headers = new ArrayList<>();
+		headers.add(new BasicHeader(HttpHeaders.CONNECTION, "close"));
+		// headers.add(new BasicHeader(HttpHeaders.ACCEPT_ENCODING,
+		// "gzip,deflate"));
+		headers.add(new BasicHeader(HttpHeaders.CONTENT_TYPE, "text/xml"));
+		// headers.add(new BasicHeader(HttpHeaders.HOST,
+		// "brcwbcc53.sa.bm.net"));
+		headers.add(new BasicHeader(HttpHeaders.USER_AGENT, "Apache-HttpClient/4.1.1"));
+		httpClient = HttpClients.custom().setDefaultHeaders(headers)
+				.setConnectionManager(new PoolingHttpClientConnectionManager()).build();
+	}
 
 	private final Logger log = Logger.getLogger(getClass());
-
 	private final AnalyticsInfo _analyticsInfo;
 
 	AnalyticsSender(final AnalyticsInfo analyticsInfo) {
