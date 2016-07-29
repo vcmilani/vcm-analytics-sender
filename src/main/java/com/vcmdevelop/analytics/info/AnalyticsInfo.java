@@ -6,9 +6,12 @@ import java.util.UUID;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.lang3.StringUtils;
+
 import com.vcmdevelop.analytics.annotation.AnalyticsRequest;
 import com.vcmdevelop.analytics.objs.AnalyticsUser;
 import com.vcmdevelop.analytics.setup.AnalyticsSetupData;
+
 
 /** 
  * Informações gerais do analytics, que deve ser enviado sempre
@@ -68,7 +71,7 @@ public abstract class AnalyticsInfo {
 	public void setAnonymousClientID(final HttpServletRequest request) {
 		final HttpSession session = request.getSession();
 		final AnalyticsUser user = (AnalyticsUser) session.getAttribute(AnalyticsSetupData.userKey);
-		if (user == null || user.getUuid() == null || user.getUuid().length() == 0)
+		if (user == null || StringUtils.isBlank(user.getUuid()))
 			anonymousClientID = UUID.randomUUID().toString();
 		else
 			anonymousClientID = user.getUuid();
