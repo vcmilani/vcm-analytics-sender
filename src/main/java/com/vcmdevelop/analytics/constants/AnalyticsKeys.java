@@ -5,7 +5,7 @@ package com.vcmdevelop.analytics.constants;
  * trabalha
  */
 public interface AnalyticsKeys {
-	String GOOGLE_ANALYTICS_URL = "https://www.google-analytics.com";
+	String GOOGLE_ANALYTICS_URL = "https://www.google-analytics.com/collect";
 
 	int GOOGLE_TRACKING_VERSION = 1;
 
