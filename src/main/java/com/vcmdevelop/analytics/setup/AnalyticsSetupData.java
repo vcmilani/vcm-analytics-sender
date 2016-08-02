@@ -30,6 +30,6 @@ public class AnalyticsSetupData {
 	public static String trackingId = null;
 
 	/** Define if this tool will generate the UUID to user */
-	public static boolean isAutoGenUserUUID = false;
+	public static boolean useAutoGenUserUUID = false;
 
 }

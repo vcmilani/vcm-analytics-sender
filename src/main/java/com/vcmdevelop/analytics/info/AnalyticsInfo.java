@@ -71,7 +71,7 @@ public abstract class AnalyticsInfo {
 		final HttpSession session = request.getSession();
 		final AnalyticsUser user = (AnalyticsUser) session.getAttribute(AnalyticsSetupData.userKey);
 		if (user == null || StringUtils.isBlank(user.getUuid())) {
-			if (AnalyticsSetupData.isAutoGenUserUUID) {
+			if (AnalyticsSetupData.useAutoGenUserUUID) {
 				anonymousClientID = UUID.randomUUID().toString();
 			} else {
 				throw new NullPointerException("User UUID Null");
