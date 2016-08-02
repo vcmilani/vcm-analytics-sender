@@ -16,16 +16,26 @@ import com.vcmdevelop.analytics.setup.AnalyticsSetupData;
  *
  */
 public class AnalyticsTracker {
+
+	private static final Logger log = Logger.getLogger(AnalyticsTracker.class);
+
 	private static ExecutorService pool;
 
 	public static void send(final AnalyticsInfo analyticsInfo) {
-		if (pool == null) {
-			final Logger log = Logger.getLogger(AnalyticsTracker.class);
-			log.info("TrackingId not defined. Please access the init method!");
-			return;
+		try {
+			if (pool == null) {
+				final Logger log = Logger.getLogger(AnalyticsTracker.class);
+				log.info("TrackingId not defined. Please access the init method!");
+				return;
+			}
+			final AnalyticsSender analyticsSender = new AnalyticsSender(analyticsInfo);
+			pool.execute(analyticsSender);
+		} catch (final Throwable e) {
+			if (e.getMessage().contains("org/apache/http/conn/HttpClientConnectionManager")) {
+				log.error("Verify org.apache.httpcomponents:httpclient dependency!");
+			}
+			log.error("Analytics send error!", e);
 		}
-		final AnalyticsSender analyticsSender = new AnalyticsSender(analyticsInfo);
-		pool.equals(analyticsSender);
 	}
 
 	/**
@@ -40,7 +50,7 @@ public class AnalyticsTracker {
 		AnalyticsSetupData.trackingId = trackingId;
 		AnalyticsSetupData.userKey = userKey;
 
-		if (pool != null) {
+		if (pool == null) {
 			pool = Executors.newSingleThreadExecutor();
 		}
 	}

@@ -12,8 +12,7 @@ import com.vcmdevelop.analytics.annotation.AnalyticsRequest;
 import com.vcmdevelop.analytics.objs.AnalyticsUser;
 import com.vcmdevelop.analytics.setup.AnalyticsSetupData;
 
-
-/** 
+/**
  * Informações gerais do analytics, que deve ser enviado sempre
  *
  * @author Victor
@@ -34,8 +33,8 @@ public abstract class AnalyticsInfo {
 	public final String trackingId = AnalyticsSetupData.trackingId;
 
 	/**
-	 * Document hostname Specifies the hostname from which content was hosted.
-	 * Example value: foo.com Example usage: dh=foo.com
+	 * Document hostname Specifies the hostname from which content was hosted. Example value: foo.com Example usage:
+	 * dh=foo.com
 	 */
 	@AnalyticsRequest(parameter = "dh")
 	public final String documentHostname = AnalyticsSetupData.documentHostname;
@@ -71,10 +70,15 @@ public abstract class AnalyticsInfo {
 	public void setAnonymousClientID(final HttpServletRequest request) {
 		final HttpSession session = request.getSession();
 		final AnalyticsUser user = (AnalyticsUser) session.getAttribute(AnalyticsSetupData.userKey);
-		if (user == null || StringUtils.isBlank(user.getUuid()))
-			anonymousClientID = UUID.randomUUID().toString();
-		else
+		if (user == null || StringUtils.isBlank(user.getUuid())) {
+			if (AnalyticsSetupData.isAutoGenUserUUID) {
+				anonymousClientID = UUID.randomUUID().toString();
+			} else {
+				throw new NullPointerException("User UUID Null");
+			}
+		} else {
 			anonymousClientID = user.getUuid();
+		}
 	}
 
 	public abstract String getTrackingType();

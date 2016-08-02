@@ -7,7 +7,6 @@ import java.util.List;
 
 import org.apache.commons.lang3.ClassUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.reflect.FieldUtils;
 import org.apache.http.Header;
 import org.apache.http.HttpHeaders;
 import org.apache.http.HttpResponse;
@@ -43,7 +42,7 @@ class AnalyticsSender implements Runnable {
 		// "brcwbcc53.sa.bm.net"));
 		headers.add(new BasicHeader(HttpHeaders.USER_AGENT, "Apache-HttpClient/4.1.1"));
 		httpClient = HttpClients.custom().setDefaultHeaders(headers)
-				.setConnectionManager(new PoolingHttpClientConnectionManager()).build();
+		                        .setConnectionManager(new PoolingHttpClientConnectionManager()).build();
 	}
 
 	private final Logger log = Logger.getLogger(getClass());
@@ -67,7 +66,7 @@ class AnalyticsSender implements Runnable {
 		for (final Class<?> obj : listClass) {
 			for (final Field field : obj.getDeclaredFields()) {
 				// final Class<?> type = field.getType();
-				final String name = field.getName();
+				// final String name = field.getName();
 				final AnalyticsRequest analyticsRequest = field.getAnnotation(AnalyticsRequest.class);
 
 				if (analyticsRequest != null) {
@@ -80,7 +79,8 @@ class AnalyticsSender implements Runnable {
 					// requestMessage.append(String.valueOf(field.get(_analyticsInfo)));
 
 					// TODO testar isso aqui!!!
-					requestMessage.append(FieldUtils.getField(_analyticsInfo.getClass(), name, true));
+					field.setAccessible(true);
+					requestMessage.append(field.get(_analyticsInfo));
 				}
 			}
 		}
@@ -109,7 +109,8 @@ class AnalyticsSender implements Runnable {
 					}
 
 					log.debug(String.format("[Analytics] Response code %s, body %s",
-							httpResponse.getStatusLine().getStatusCode(), body));
+					                        httpResponse.getStatusLine().getStatusCode(),
+					                        body));
 				} else {
 					log.error("Analytics requestMessage null");
 				}

@@ -5,8 +5,7 @@ import com.vcmdevelop.analytics.constants.AnalyticsKeys;
 public class AnalyticsSetupData {
 
 	/**
-	 * Valor do usuário que será mantido na sessão Será importante para
-	 * recuperar alguns dados sobre quem acessa
+	 * Valor do usuário que será mantido na sessão Será importante para recuperar alguns dados sobre quem acessa
 	 */
 	public static String userKey = null;
 
@@ -26,9 +25,11 @@ public class AnalyticsSetupData {
 	public static String documentHostname = null;
 
 	/**
-	 * Tracking ID salvo criado dentro do Google Analytics para a aplicação que
-	 * será monitorada
+	 * Tracking ID salvo criado dentro do Google Analytics para a aplicação que será monitorada
 	 */
 	public static String trackingId = null;
+
+	/** Define if this tool will generate the UUID to user */
+	public static boolean isAutoGenUserUUID = false;
 
 }
