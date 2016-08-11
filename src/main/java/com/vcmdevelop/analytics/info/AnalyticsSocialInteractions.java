@@ -5,6 +5,7 @@ import java.util.Locale;
 import javax.servlet.http.HttpServletRequest;
 
 import com.vcmdevelop.analytics.annotation.AnalyticsRequest;
+import com.vcmdevelop.analytics.objs.AnalyticsUser;
 
 /**
  * Social Interactions.
@@ -58,8 +59,10 @@ public class AnalyticsSocialInteractions extends AnalyticsInfo {
 	 * @param locale
 	 *            Localização para dados complementares
 	 */
-	public AnalyticsSocialInteractions(final HttpServletRequest request, final Locale locale) {
-		super(request, locale);
+	public AnalyticsSocialInteractions(final HttpServletRequest request,
+	                                   final AnalyticsUser analyticsUser,
+	                                   final Locale locale) {
+		super(request, analyticsUser, locale);
 	}
 
 	@Override

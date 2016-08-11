@@ -4,6 +4,8 @@ import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.vcmdevelop.analytics.objs.AnalyticsUser;
+
 /**
  *
  * Event Tracking.
@@ -14,6 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 public class AnalyticsEventTrackingBuilder {
 
 	private HttpServletRequest request;
+	private AnalyticsUser analyticsUser;
 	private Locale locale;
 	private String eventCategory;
 	private String eventAction;
@@ -26,7 +29,8 @@ public class AnalyticsEventTrackingBuilder {
 		if (locale == null)
 			throw new NullPointerException("Locale null");
 
-		final AnalyticsEventTracking analyticsEventTracking = new AnalyticsEventTracking(request, locale);
+		final AnalyticsEventTracking analyticsEventTracking = new AnalyticsEventTracking(request, analyticsUser,
+		        locale);
 		analyticsEventTracking.eventCategory = eventCategory;
 		analyticsEventTracking.eventAction = eventAction;
 		analyticsEventTracking.eventLabel = eventLabel;
@@ -35,12 +39,19 @@ public class AnalyticsEventTrackingBuilder {
 		return analyticsEventTracking;
 	}
 
-	public void setRequest(final HttpServletRequest request) {
+	public AnalyticsEventTrackingBuilder setRequest(final HttpServletRequest request) {
 		this.request = request;
+		return this;
 	}
 
-	public void setLocale(final Locale locale) {
+	public AnalyticsEventTrackingBuilder setAnalyticsUser(final AnalyticsUser analyticsUser) {
+		this.analyticsUser = analyticsUser;
+		return this;
+	}
+
+	public AnalyticsEventTrackingBuilder setLocale(final Locale locale) {
 		this.locale = locale;
+		return this;
 	}
 
 	/**

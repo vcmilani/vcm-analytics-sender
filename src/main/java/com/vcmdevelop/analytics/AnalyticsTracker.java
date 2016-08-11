@@ -9,9 +9,8 @@ import com.vcmdevelop.analytics.info.AnalyticsInfo;
 import com.vcmdevelop.analytics.setup.AnalyticsSetupData;
 
 /**
- * Classe responsável por facilitar o inicio do envio das estatisticas para o
- * Google Analytics. Os envios serão enviados sequencialmente, ficando na fila
- * caso se acomule.
+ * Classe responsável por facilitar o inicio do envio das estatisticas para o Google Analytics. Os envios serão enviados
+ * sequencialmente, ficando na fila caso se acomule.
  *
  * <pre>
  * Ex: a primeira vez, de preferencia quando a aplicação subir
@@ -55,10 +54,9 @@ public class AnalyticsTracker {
 	 * @param trackingId
 	 * @param userKey
 	 */
-	public static void init(final String documentHostname, final String trackingId, final String userKey) {
+	public static void init(final String documentHostname, final String trackingId) {
 		AnalyticsSetupData.documentHostname = documentHostname;
 		AnalyticsSetupData.trackingId = trackingId;
-		AnalyticsSetupData.userKey = userKey;
 
 		if (pool == null) {
 			pool = Executors.newSingleThreadExecutor();
@@ -66,8 +64,7 @@ public class AnalyticsTracker {
 	}
 
 	/**
-	 * Finaliza o envio de requisições. As requisições que estão na fila serão
-	 * finalizadas.
+	 * Finaliza o envio de requisições. As requisições que estão na fila serão finalizadas.
 	 */
 	public static void shutdown() {
 		pool.shutdown();

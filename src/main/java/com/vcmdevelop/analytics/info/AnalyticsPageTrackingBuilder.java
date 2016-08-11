@@ -4,6 +4,8 @@ import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.vcmdevelop.analytics.objs.AnalyticsUser;
+
 /**
  * Page Tracking
  *
@@ -13,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 public class AnalyticsPageTrackingBuilder {
 
 	private HttpServletRequest request;
+	private AnalyticsUser analyticsUser;
 	private Locale locale;
 	public String page;
 	public String title;
@@ -23,7 +26,7 @@ public class AnalyticsPageTrackingBuilder {
 		if (locale == null)
 			throw new NullPointerException("Locale null");
 
-		final AnalyticsPageTracking analyticsPageTracking = new AnalyticsPageTracking(request, locale);
+		final AnalyticsPageTracking analyticsPageTracking = new AnalyticsPageTracking(request, analyticsUser, locale);
 		analyticsPageTracking.page = page;
 		analyticsPageTracking.title = title;
 
@@ -35,15 +38,19 @@ public class AnalyticsPageTrackingBuilder {
 		return this;
 	}
 
+	public AnalyticsPageTrackingBuilder setAnalyticsUser(final AnalyticsUser analyticsUser) {
+		this.analyticsUser = analyticsUser;
+		return this;
+	}
+
 	public AnalyticsPageTrackingBuilder setLocale(final Locale locale) {
 		this.locale = locale;
 		return this;
 	}
 
 	/**
-	 * Page The path portion of the page URL. Should begin with '/'. For
-	 * 'pageview' hits, either &dl or both &dh and &dp have to be specified for
-	 * the hit to be valid. Example value: /foo Example usage: dp=%2Ffoo
+	 * Page The path portion of the page URL. Should begin with '/'. For 'pageview' hits, either &dl or both &dh and &dp
+	 * have to be specified for the hit to be valid. Example value: /foo Example usage: dp=%2Ffoo
 	 */
 	public AnalyticsPageTrackingBuilder setPage(final String page) {
 		this.page = page;
@@ -51,8 +58,7 @@ public class AnalyticsPageTrackingBuilder {
 	}
 
 	/**
-	 * Title The title of the page / document. Example value: Settings Example.
-	 * usage: dt=Settings
+	 * Title The title of the page / document. Example value: Settings Example. usage: dt=Settings
 	 */
 	public AnalyticsPageTrackingBuilder setTitle(final String title) {
 		this.title = title;

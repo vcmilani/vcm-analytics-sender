@@ -4,6 +4,8 @@ import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.vcmdevelop.analytics.objs.AnalyticsUser;
+
 /**
  * User TIming Tracking
  *
@@ -12,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
  */
 public class AnalyticsUserTimingTrackingBuilder {
 	private HttpServletRequest request;
+	private AnalyticsUser analyticsUser;
 	private Locale locale;
 
 	private String timingCategory;
@@ -32,7 +35,7 @@ public class AnalyticsUserTimingTrackingBuilder {
 			throw new NullPointerException("Locale null");
 
 		final AnalyticsUserTimingTracking analyticsUserTimingTracking = new AnalyticsUserTimingTracking(request,
-				locale);
+		        analyticsUser, locale);
 		analyticsUserTimingTracking.timingCategory = timingCategory;
 		analyticsUserTimingTracking.timingVariable = timingVariable;
 		analyticsUserTimingTracking.timingTime = timingTime;
@@ -44,6 +47,21 @@ public class AnalyticsUserTimingTrackingBuilder {
 		analyticsUserTimingTracking.serverResponseTime = serverResponseTime;
 
 		return analyticsUserTimingTracking;
+	}
+
+	public AnalyticsUserTimingTrackingBuilder setRequest(final HttpServletRequest request) {
+		this.request = request;
+		return this;
+	}
+
+	public AnalyticsUserTimingTrackingBuilder setAnalyticsUser(final AnalyticsUser analyticsUser) {
+		this.analyticsUser = analyticsUser;
+		return this;
+	}
+
+	public AnalyticsUserTimingTrackingBuilder setLocale(final Locale locale) {
+		this.locale = locale;
+		return this;
 	}
 
 	/**

@@ -5,6 +5,7 @@ import java.util.Locale;
 import javax.servlet.http.HttpServletRequest;
 
 import com.vcmdevelop.analytics.annotation.AnalyticsRequest;
+import com.vcmdevelop.analytics.objs.AnalyticsUser;
 
 /**
  * User TIming Tracking
@@ -16,7 +17,7 @@ public class AnalyticsUserTimingTracking extends AnalyticsInfo {
 
 	/**
 	 * Timing hit type.
-	 */ 
+	 */
 	@AnalyticsRequest(parameter = "t")
 	private final String trackingType = "timing";
 
@@ -86,8 +87,10 @@ public class AnalyticsUserTimingTracking extends AnalyticsInfo {
 	 * @param locale
 	 *            Localização para dados complementares
 	 */
-	public AnalyticsUserTimingTracking(final HttpServletRequest request, final Locale locale) {
-		super(request, locale);
+	public AnalyticsUserTimingTracking(final HttpServletRequest request,
+	                                   final AnalyticsUser analyticsUser,
+	                                   final Locale locale) {
+		super(request, analyticsUser, locale);
 	}
 
 	@Override

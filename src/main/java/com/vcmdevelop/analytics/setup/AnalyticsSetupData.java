@@ -5,11 +5,6 @@ import com.vcmdevelop.analytics.constants.AnalyticsKeys;
 public class AnalyticsSetupData {
 
 	/**
-	 * Valor do usuário que será mantido na sessão Será importante para recuperar alguns dados sobre quem acessa
-	 */
-	public static String userKey = null;
-
-	/**
 	 * Não deve ser substituido, a menos que haja alguma outra URL a conectar
 	 */
 	public static String googleAnalyticsUrl = AnalyticsKeys.GOOGLE_ANALYTICS_URL;

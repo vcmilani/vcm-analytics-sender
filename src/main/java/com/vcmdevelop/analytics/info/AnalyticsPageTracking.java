@@ -5,6 +5,7 @@ import java.util.Locale;
 import javax.servlet.http.HttpServletRequest;
 
 import com.vcmdevelop.analytics.annotation.AnalyticsRequest;
+import com.vcmdevelop.analytics.objs.AnalyticsUser;
 
 /**
  * Page Tracking
@@ -21,16 +22,14 @@ public class AnalyticsPageTracking extends AnalyticsInfo {
 	private final String trackingType = "pageview";
 
 	/**
-	 * Page The path portion of the page URL. Should begin with '/'. For
-	 * 'pageview' hits, either &dl or both &dh and &dp have to be specified for
-	 * the hit to be valid. Example value: /foo Example usage: dp=%2Ffoo
+	 * Page The path portion of the page URL. Should begin with '/'. For 'pageview' hits, either &dl or both &dh and &dp
+	 * have to be specified for the hit to be valid. Example value: /foo Example usage: dp=%2Ffoo
 	 */
 	@AnalyticsRequest(parameter = "dp")
 	public String page;
 
 	/**
-	 * Title The title of the page / document. Example value: Settings Example.
-	 * usage: dt=Settings
+	 * Title The title of the page / document. Example value: Settings Example. usage: dt=Settings
 	 */
 	@AnalyticsRequest(parameter = "dt")
 	public String title;
@@ -53,8 +52,10 @@ public class AnalyticsPageTracking extends AnalyticsInfo {
 	 * @param locale
 	 *            Localização para dados complementares
 	 */
-	public AnalyticsPageTracking(final HttpServletRequest request, final Locale locale) {
-		super(request, locale);
+	public AnalyticsPageTracking(final HttpServletRequest request,
+	                             final AnalyticsUser analyticsUser,
+	                             final Locale locale) {
+		super(request, analyticsUser, locale);
 	}
 
 	@Override

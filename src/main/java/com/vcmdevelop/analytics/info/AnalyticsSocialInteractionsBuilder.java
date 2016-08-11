@@ -4,6 +4,8 @@ import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.vcmdevelop.analytics.objs.AnalyticsUser;
+
 /**
  * Social Interactions.
  *
@@ -13,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 public class AnalyticsSocialInteractionsBuilder {
 
 	private HttpServletRequest request;
+	private AnalyticsUser analyticsUser;
 	private Locale locale;
 	private String socialAction;
 	private String socialNetwork;
@@ -25,12 +28,27 @@ public class AnalyticsSocialInteractionsBuilder {
 			throw new NullPointerException("Locale null");
 
 		final AnalyticsSocialInteractions analyticsSocialInteractions = new AnalyticsSocialInteractions(request,
-				locale);
+		        analyticsUser, locale);
 		analyticsSocialInteractions.socialAction = socialAction;
 		analyticsSocialInteractions.socialNetwork = socialNetwork;
 		analyticsSocialInteractions.socialTarget = socialTarget;
 
 		return analyticsSocialInteractions;
+	}
+
+	public AnalyticsSocialInteractionsBuilder setRequest(final HttpServletRequest request) {
+		this.request = request;
+		return this;
+	}
+
+	public AnalyticsSocialInteractionsBuilder setAnalyticsUser(final AnalyticsUser analyticsUser) {
+		this.analyticsUser = analyticsUser;
+		return this;
+	}
+
+	public AnalyticsSocialInteractionsBuilder setLocale(final Locale locale) {
+		this.locale = locale;
+		return this;
 	}
 
 	/**

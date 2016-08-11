@@ -5,14 +5,13 @@ import java.util.Locale;
 import javax.servlet.http.HttpServletRequest;
 
 import com.vcmdevelop.analytics.annotation.AnalyticsRequest;
-
-
+import com.vcmdevelop.analytics.objs.AnalyticsUser;
 
 /**
  *
  * Event Tracking.
  *
- * @author victor 
+ * @author victor
  *
  */
 public class AnalyticsEventTracking extends AnalyticsInfo {
@@ -67,8 +66,10 @@ public class AnalyticsEventTracking extends AnalyticsInfo {
 	 * @param locale
 	 *            Localização para dados complementares
 	 */
-	public AnalyticsEventTracking(final HttpServletRequest request, final Locale locale) {
-		super(request, locale);
+	public AnalyticsEventTracking(final HttpServletRequest request,
+	                              final AnalyticsUser analyticsUser,
+	                              final Locale locale) {
+		super(request, analyticsUser, locale);
 	}
 
 	@Override

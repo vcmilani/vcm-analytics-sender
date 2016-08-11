@@ -4,7 +4,6 @@ import java.util.Locale;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -61,23 +60,21 @@ public abstract class AnalyticsInfo {
 	//
 	// }
 
-	public AnalyticsInfo(final HttpServletRequest request, final Locale locale) {
+	public AnalyticsInfo(final HttpServletRequest request, final AnalyticsUser analyticsUser, final Locale locale) {
 		ipOverride = request.getRemoteAddr();
-		setAnonymousClientID(request);
+		setAnonymousClientID(analyticsUser);
 		userLanguage = locale.getDisplayLanguage();
 	}
 
-	public void setAnonymousClientID(final HttpServletRequest request) {
-		final HttpSession session = request.getSession();
-		final AnalyticsUser user = (AnalyticsUser) session.getAttribute(AnalyticsSetupData.userKey);
-		if (user == null || StringUtils.isBlank(user.getUuid())) {
+	public void setAnonymousClientID(final AnalyticsUser analyticsUser) {
+		if (analyticsUser == null || StringUtils.isBlank(analyticsUser.getUuid())) {
 			if (AnalyticsSetupData.useAutoGenUserUUID) {
 				anonymousClientID = UUID.randomUUID().toString();
 				// } else {
 				// throw new NullPointerException("User UUID Null");
 			}
 		} else {
-			anonymousClientID = user.getUuid();
+			anonymousClientID = analyticsUser.getUuid();
 		}
 	}
 
