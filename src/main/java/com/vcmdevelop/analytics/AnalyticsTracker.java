@@ -32,7 +32,7 @@ public class AnalyticsTracker {
 			pool.execute(analyticsSender);
 		} catch (final Throwable e) {
 			if (e.getMessage().contains("org/apache/http/conn/HttpClientConnectionManager")) {
-				log.error("Verify org.apache.httpcomponents:httpclient dependency!");
+				log.error("Verify org.apache.httpcomponents:httpclient dependency!", e);
 			}
 			log.error("Analytics send error!", e);
 		}

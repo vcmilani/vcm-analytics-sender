@@ -73,8 +73,8 @@ public abstract class AnalyticsInfo {
 		if (user == null || StringUtils.isBlank(user.getUuid())) {
 			if (AnalyticsSetupData.useAutoGenUserUUID) {
 				anonymousClientID = UUID.randomUUID().toString();
-			} else {
-				throw new NullPointerException("User UUID Null");
+				// } else {
+				// throw new NullPointerException("User UUID Null");
 			}
 		} else {
 			anonymousClientID = user.getUuid();
