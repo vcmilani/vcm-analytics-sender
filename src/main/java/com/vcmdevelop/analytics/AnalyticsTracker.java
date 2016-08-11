@@ -9,8 +9,18 @@ import com.vcmdevelop.analytics.info.AnalyticsInfo;
 import com.vcmdevelop.analytics.setup.AnalyticsSetupData;
 
 /**
- * Classe responsável por facilitar o inicio do envio das estatisticas para o Google Analytics. Os envios serão enviados
- * sequencialmente, ficando na fila caso se acomule.
+ * Classe responsável por facilitar o inicio do envio das estatisticas para o
+ * Google Analytics. Os envios serão enviados sequencialmente, ficando na fila
+ * caso se acomule.
+ *
+ * <pre>
+ * Ex: a primeira vez, de preferencia quando a aplicação subir
+ * AnalyticsTracker.init("domain.com", "UA-XXXXXXX-X", "USER");
+ *
+ * Toda vez que desejar monitorar algo:<br>
+ * AnalyticsTracker.send(new AnalyticsPageTrackingBuilder().setRequest(request)
+ * 			.setLocale(locale).setPage("home").setTitle("Feed").build());
+ * </pre>
  *
  * @author Victor
  *
@@ -56,7 +66,8 @@ public class AnalyticsTracker {
 	}
 
 	/**
-	 * Finaliza o envio de requisições. As requisições que estão na fila serão finalizadas.
+	 * Finaliza o envio de requisições. As requisições que estão na fila serão
+	 * finalizadas.
 	 */
 	public static void shutdown() {
 		pool.shutdown();
